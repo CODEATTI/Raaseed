@@ -68,7 +68,7 @@ export const DocumentationView: React.FC = () => {
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
             The data layer is decoupled from visual display components. Connecting real MTC hardware requires substituting the mock updater with an external polling/WebSocket hook:
           </p>
-          <div className="mt-3 rounded-xl bg-slate-900 p-3 text-[11px] font-mono text-cyan-300">
+          <div className="mt-3 rounded-xl bg-slate-900 p-3 text-[11px] font-mono text-cyan-300 overflow-x-auto break-words">
             MTC Vehicle GPS Units → AIS-140 Gateway → GTFS-Realtime Feed / WebSocket → Backend API Gateway → Smart TV Display
           </div>
         </div>

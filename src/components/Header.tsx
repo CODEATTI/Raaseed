@@ -105,37 +105,55 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-800 bg-slate-950/95 backdrop-blur-md shadow-xl transition-all">
+    <header className="relative md:sticky md:top-0 z-40 w-full border-b border-slate-800 bg-slate-950/95 backdrop-blur-md shadow-xl transition-all">
       {/* Top Bar: Official Government & Transit Brand */}
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-2.5 sm:px-6 border-b border-slate-800/80">
-        {/* Logo & Identity */}
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 text-slate-950 shadow-lg shadow-amber-500/20 ring-2 ring-amber-400/40">
-            <Bus className="h-6 w-6 stroke-[2.5]" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase">
-                MTC CHENNAI
-              </span>
-              <span className="rounded bg-amber-500/20 px-1.5 py-0.5 text-[11px] font-bold text-amber-300 border border-amber-500/40">
-                PROTOTYPE
-              </span>
+      <div className="mx-auto flex max-w-7xl flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 sm:gap-3 px-3 py-2.5 sm:px-6 border-b border-slate-800/80">
+        {/* Row 1 on Mobile: Logo + Compact TV Button */}
+        <div className="flex items-center justify-between gap-2.5 min-w-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 text-slate-950 shadow-lg shadow-amber-500/20 ring-2 ring-amber-400/40">
+              <Bus className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5]" />
             </div>
-            <p className="text-[11px] font-semibold text-slate-300">
-              {language === 'ta'
-                ? 'மாநகர போக்குவரத்துக் கழகம் (சென்னை) • நிகழ்நேர தகவல்'
-                : language === 'en'
-                ? 'Metropolitan Transport Corporation • Smart Arrival System'
-                : 'Metropolitan Transport Corporation • மாநகர போக்குவரத்துக் கழகம் (சென்னை)'}
-            </p>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-sm sm:text-lg font-black tracking-tight text-white uppercase truncate">
+                  MTC CHENNAI
+                </span>
+                <span className="rounded bg-amber-500/20 px-1.5 py-0.5 text-[10px] sm:text-[11px] font-bold text-amber-300 border border-amber-500/40 shrink-0">
+                  LIVE
+                </span>
+              </div>
+              <p className="text-[11px] font-semibold text-slate-300 truncate">
+                {language === 'ta'
+                  ? 'மாநகர போக்குவரத்துக் கழகம் (சென்னை) • நிகழ்நேர தகவல்'
+                  : language === 'en'
+                  ? 'Metropolitan Transport Corporation • Smart Arrival System'
+                  : 'MTC Chennai • மாநகர போக்குவரத்துக் கழகம்'}
+              </p>
+            </div>
           </div>
+
+          {/* Mobile TV Mode Button (inline on top row for mobile alignment) */}
+          <button
+            id="btn-tv-mode-toggle-mobile"
+            type="button"
+            onClick={toggleTvMode}
+            className={`lg:hidden shrink-0 inline-flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-extrabold shadow-md transition-all min-h-[40px] ${
+              isTvMode
+                ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-600/30'
+                : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/20'
+            }`}
+            title="Toggle TV Display Mode (16:9 Fullscreen Kiosk Layout)"
+          >
+            {isTvMode ? <Minimize2 className="h-4 w-4" /> : <Monitor className="h-4 w-4" />}
+            <span>{isTvMode ? 'Exit TV' : 'TV Mode'}</span>
+          </button>
         </div>
 
-        {/* Bus Stand Selector & Live Digital Clock */}
-        <div className="flex items-center gap-4 flex-wrap">
+        {/* Bus Stand Selector, Live Digital Clock & Desktop TV Mode CTA */}
+        <div className="flex items-center justify-between lg:justify-end gap-2 sm:gap-3 w-full lg:w-auto min-w-0">
           {/* Terminal / Stand Selector */}
-          <div className="flex items-center gap-2 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-1.5 shadow-inner">
+          <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-900 border border-slate-700/80 rounded-xl px-2.5 sm:px-3 py-1.5 shadow-inner flex-1 lg:flex-initial min-w-0 max-w-full">
             <MapPin className="h-4 w-4 text-amber-400 shrink-0" />
             <select
               id="header-bus-stand-select"
@@ -145,7 +163,7 @@ export const Header: React.FC = () => {
                 const stand = MTC_BUS_STANDS.find((s) => s.id === e.target.value);
                 if (stand) setCurrentBusStand(stand);
               }}
-              className="bg-transparent text-xs sm:text-sm font-bold text-white focus:outline-none cursor-pointer pr-1"
+              className="w-full min-w-0 bg-transparent text-xs sm:text-sm font-bold text-white focus:outline-none cursor-pointer truncate pr-1"
             >
               {MTC_BUS_STANDS.map((stand) => (
                 <option key={stand.id} value={stand.id} className="bg-slate-900 text-white">
@@ -161,24 +179,25 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Real-time Clock */}
-          <div className="flex items-center gap-3 bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-1.5 shadow-inner font-mono">
-            <Clock className="h-4 w-4 text-cyan-400" />
-            <div className="flex flex-col">
-              <span className="text-sm font-black text-cyan-300 tracking-wider">
+          <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-800 rounded-xl px-2.5 sm:px-3.5 py-1.5 shadow-inner font-mono shrink-0">
+            <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-cyan-400 shrink-0" />
+            <div className="flex flex-col text-right sm:text-left">
+              <span className="text-xs sm:text-sm font-black text-cyan-300 tracking-wider tabular-nums whitespace-nowrap">
                 {currentTime || '09:42:00 AM'}
               </span>
-              <span className="text-[10px] text-slate-400 font-sans font-medium flex items-center gap-1">
+              <span className="hidden sm:flex text-[10px] text-slate-400 font-sans font-medium items-center gap-1 whitespace-nowrap">
                 <Calendar className="h-2.5 w-2.5 text-slate-500" />
                 {currentDate || '11 September 2026'}
               </span>
             </div>
           </div>
 
-          {/* TV Mode Big CTA */}
+          {/* Desktop TV Mode Big CTA */}
           <button
             id="btn-tv-mode-toggle"
+            type="button"
             onClick={toggleTvMode}
-            className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-extrabold shadow-md transition-all ${
+            className={`hidden lg:inline-flex shrink-0 items-center gap-2 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-extrabold shadow-md transition-all whitespace-nowrap ${
               isTvMode
                 ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-600/30'
                 : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/20'
@@ -193,7 +212,7 @@ export const Header: React.FC = () => {
             ) : (
               <>
                 <Monitor className="h-4 w-4" />
-                <span>🖥 ENTER TV DISPLAY MODE</span>
+                <span>ENTER TV DISPLAY MODE</span>
               </>
             )}
           </button>
@@ -202,84 +221,84 @@ export const Header: React.FC = () => {
 
       {/* Second Bar: Navigation Tabs & Control Toggles (Hidden in pure TV mode if needed) */}
       {!isTvMode && (
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-2 sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col xl:flex-row xl:items-center xl:justify-between gap-2 px-3 py-2 sm:px-6">
           {/* Navigation Views */}
-          <nav className="flex items-center gap-1.5 overflow-x-auto py-1 text-xs font-bold no-scrollbar">
+          <nav className="flex items-center gap-1.5 overflow-x-auto py-0.5 text-xs font-bold no-scrollbar w-full xl:w-auto">
             <button
               id="tab-tv"
               onClick={() => setActiveTab('tv')}
-              className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 transition-all whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 sm:py-1.5 transition-all whitespace-nowrap shrink-0 ${
                 activeTab === 'tv'
                   ? 'bg-amber-500 text-slate-950 font-black shadow'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <Monitor className="h-3.5 w-3.5" />
-              <span>{language === 'ta' ? 'வருகை பலகை' : 'Live Arrival Board'}</span>
+              <span>{language === 'ta' ? 'வருகை பலகை' : 'Live Board'}</span>
             </button>
 
             <button
               id="tab-all-buses"
               onClick={() => setActiveTab('all-buses')}
-              className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 transition-all whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 sm:py-1.5 transition-all whitespace-nowrap shrink-0 ${
                 activeTab === 'all-buses'
                   ? 'bg-amber-500 text-slate-950 font-black shadow'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <Layers className="h-3.5 w-3.5" />
-              <span>{language === 'ta' ? 'அனைத்து பேருந்துகள்' : 'All Buses At Stop'}</span>
+              <span>{language === 'ta' ? 'அனைத்து பேருந்துகள்' : 'All Buses'}</span>
             </button>
 
             <button
               id="tab-categories"
               onClick={() => setActiveTab('categories')}
-              className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 transition-all whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 sm:py-1.5 transition-all whitespace-nowrap shrink-0 ${
                 activeTab === 'categories'
                   ? 'bg-amber-500 text-slate-950 font-black shadow'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <Bus className="h-3.5 w-3.5" />
-              <span>{language === 'ta' ? 'பேருந்து வகைகள்' : 'Bus Categories Guide'}</span>
+              <span>{language === 'ta' ? 'பேருந்து வகைகள்' : 'Bus Types'}</span>
             </button>
 
             <button
               id="tab-admin"
               onClick={() => setActiveTab('admin')}
-              className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 transition-all whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 sm:py-1.5 transition-all whitespace-nowrap shrink-0 ${
                 activeTab === 'admin'
                   ? 'bg-amber-500 text-slate-950 font-black shadow'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <Settings className="h-3.5 w-3.5" />
-              <span>{language === 'ta' ? 'நிர்வாகக் குழு' : 'Operator Admin Panel'}</span>
+              <span>{language === 'ta' ? 'நிர்வாகம்' : 'Admin'}</span>
             </button>
 
             <button
               id="tab-docs"
               onClick={() => setActiveTab('docs')}
-              className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 transition-all whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 sm:py-1.5 transition-all whitespace-nowrap shrink-0 ${
                 activeTab === 'docs'
                   ? 'bg-amber-500 text-slate-950 font-black shadow'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <BookOpen className="h-3.5 w-3.5" />
-              <span>Docs & Architecture</span>
+              <span>Docs</span>
             </button>
           </nav>
 
           {/* Quick Controls: Simulation speed, Sound, Language */}
-          <div className="flex items-center gap-2.5 flex-wrap">
+          <div className="flex items-center justify-between sm:justify-end gap-2 flex-wrap w-full xl:w-auto pt-1 xl:pt-0 border-t border-slate-800/70 xl:border-t-0">
             {/* Simulation speed toggle */}
-            <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-lg p-1 text-xs">
+            <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-lg p-1 text-xs shrink-0">
               <span className="text-[10px] text-slate-400 font-bold px-1 uppercase">Sim:</span>
               <button
                 id="btn-sim-pause"
                 onClick={() => setSimulationSpeed(0)}
-                className={`px-2 py-0.5 rounded text-[11px] font-bold ${
+                className={`px-2 py-1 sm:py-0.5 rounded text-[11px] font-bold ${
                   simulationSpeed === 0 ? 'bg-rose-500 text-white' : 'text-slate-400 hover:text-white'
                 }`}
                 title="Pause Simulation"
@@ -289,7 +308,7 @@ export const Header: React.FC = () => {
               <button
                 id="btn-sim-1x"
                 onClick={() => setSimulationSpeed(1)}
-                className={`px-2 py-0.5 rounded text-[11px] font-bold ${
+                className={`px-2 py-1 sm:py-0.5 rounded text-[11px] font-bold ${
                   simulationSpeed === 1 ? 'bg-cyan-500 text-slate-950 font-black' : 'text-slate-400 hover:text-white'
                 }`}
                 title="Real-time 1s = 1s"
@@ -299,7 +318,7 @@ export const Header: React.FC = () => {
               <button
                 id="btn-sim-fast"
                 onClick={() => setSimulationSpeed(3)}
-                className={`px-2 py-0.5 rounded text-[11px] font-bold ${
+                className={`px-2 py-1 sm:py-0.5 rounded text-[11px] font-bold ${
                   simulationSpeed === 3 ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-400 hover:text-white'
                 }`}
                 title="Demo Turbo Speed"
@@ -309,12 +328,12 @@ export const Header: React.FC = () => {
             </div>
 
             {/* Terminal PA Audio Suite */}
-            <div className="relative flex items-center gap-1.5">
+            <div className="relative flex items-center gap-1.5 shrink-0">
               {/* Audio Master Toggle button */}
               <button
                 id="btn-sound-toggle"
                 onClick={() => setSoundEnabled(!soundEnabled)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all shadow-sm ${
+                className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-bold transition-all shadow-sm ${
                   soundEnabled
                     ? 'bg-emerald-950/80 border-emerald-500/80 text-emerald-300 ring-1 ring-emerald-500/40'
                     : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-white'
@@ -334,12 +353,12 @@ export const Header: React.FC = () => {
                 ) : (
                   <VolumeX className="h-4 w-4 text-slate-400" />
                 )}
-                <span>
+                <span className="whitespace-nowrap">
                   {soundEnabled
                     ? isAudioPlaying
-                      ? 'Broadcasting...'
-                      : 'PA Audio ON'
-                    : 'PA Audio OFF'}
+                      ? 'Speaking'
+                      : 'PA ON'
+                    : 'PA OFF'}
                 </span>
               </button>
 
@@ -348,7 +367,7 @@ export const Header: React.FC = () => {
                 id="btn-test-sound-quick"
                 type="button"
                 onClick={testVoiceAnnouncement}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold transition-all active:scale-95"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold transition-all active:scale-95"
                 title="Play test chime & announcement right now"
               >
                 <Play className="h-3 w-3 fill-amber-300" />
@@ -360,7 +379,7 @@ export const Header: React.FC = () => {
                 id="btn-sound-settings-toggle"
                 type="button"
                 onClick={() => setShowAudioMenu(!showAudioMenu)}
-                className={`p-1.5 rounded-xl border text-xs transition-colors ${
+                className={`p-1.5 sm:p-2 rounded-xl border text-xs transition-colors ${
                   showAudioMenu
                     ? 'bg-amber-500 text-slate-950 border-amber-400'
                     : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
@@ -374,7 +393,7 @@ export const Header: React.FC = () => {
               {showAudioMenu && (
                 <div
                   id="audio-settings-popover"
-                  className="absolute top-full right-0 mt-2 w-72 sm:w-80 rounded-2xl bg-slate-950 border-2 border-slate-800 p-4 shadow-2xl z-50 animate-fadeIn"
+                  className="fixed inset-x-3 top-24 sm:inset-x-auto sm:absolute sm:top-full sm:right-0 sm:mt-2 sm:w-80 rounded-2xl bg-slate-950 border-2 border-slate-800 p-4 shadow-2xl z-50 animate-fadeIn max-h-[80vh] overflow-y-auto"
                 >
                   <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-800">
                     <div className="flex items-center gap-2 text-amber-400 font-black text-xs uppercase tracking-wider">

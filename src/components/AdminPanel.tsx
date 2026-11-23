@@ -147,41 +147,41 @@ export const AdminPanel: React.FC = () => {
         </div>
 
         {/* Live Preview Toggle & Reset */}
-        <div className="flex items-center gap-2.5 flex-wrap">
+        <div className="flex items-center gap-2.5 flex-wrap w-full sm:w-auto">
           <button
             id="btn-toggle-live-preview"
             onClick={() => setShowLivePreview(!showLivePreview)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition-all ${
               showLivePreview
                 ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30'
                 : 'bg-slate-800 text-white hover:bg-slate-700'
             }`}
           >
             <Eye className="h-4 w-4" />
-            <span>{showLivePreview ? 'Hide Live Display Preview' : 'Show Live TV Preview'}</span>
+            <span>{showLivePreview ? 'Hide Preview' : 'Live TV Preview'}</span>
           </button>
 
           <button
             id="btn-reset-demo-data"
             onClick={resetToDefaultData}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-rose-950/80 hover:text-rose-300 border border-slate-700 text-slate-300 text-xs font-bold transition-colors"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-2.5 sm:py-2 rounded-xl bg-slate-800 hover:bg-rose-950/80 hover:text-rose-300 border border-slate-700 text-slate-300 text-xs font-bold transition-colors"
             title="Reset to default mock buses & announcements"
           >
             <RotateCcw className="h-3.5 w-3.5" />
-            <span>Reset Demo Data</span>
+            <span>Reset Data</span>
           </button>
         </div>
       </div>
 
       {/* Embedded Live Display Preview (if toggled) */}
       {showLivePreview && (
-        <div className="rounded-3xl border-2 border-cyan-500/60 bg-slate-950 p-5 shadow-2xl animate-fadeIn">
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-cyan-400 text-xs font-black uppercase tracking-wider">
+        <div className="rounded-3xl border-2 border-cyan-500/60 bg-slate-950 p-3.5 sm:p-5 shadow-2xl animate-fadeIn">
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-800 text-cyan-400 text-xs font-black uppercase tracking-wider">
             <span className="flex items-center gap-2">
-              <Eye className="h-4 w-4" /> LIVE PASSENGER TV DISPLAY PREVIEW (REAL-TIME SYNC)
+              <Eye className="h-4 w-4 shrink-0" /> LIVE PASSENGER TV DISPLAY PREVIEW
             </span>
             <span className="text-slate-400 font-normal">
-              Showing exact kiosk layout for {currentBusStand.nameEn}
+              Sync: {currentBusStand.nameEn}
             </span>
           </div>
           <NextBusesBoard maxDisplay={5} />
@@ -505,18 +505,18 @@ export const AdminPanel: React.FC = () => {
       </div>
 
       {/* Bus Fleet Table & Quick ETA / Status Modifiers */}
-      <div className="rounded-3xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 shadow-xl">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-base font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
-            <Sliders className="h-4 w-4" /> Real-Time Fleet Controller ({buses.length} Active Buses)
+      <div className="rounded-3xl border border-slate-800 bg-slate-900/90 p-4 sm:p-6 shadow-xl">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <h3 className="text-sm sm:text-base font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <Sliders className="h-4 w-4 shrink-0" /> Real-Time Fleet Controller ({buses.length} Active Buses)
           </h3>
           <span className="text-xs text-slate-400">
             Quickly advance ETA, mark delayed or arriving now
           </span>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
+        <div className="overflow-x-auto -mx-2 px-2">
+          <table className="w-full min-w-[760px] text-left text-xs text-slate-300">
             <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-black tracking-wider border-b border-slate-800">
               <tr>
                 <th className="py-3 px-3">Bus No</th>
@@ -723,23 +723,23 @@ export const AdminPanel: React.FC = () => {
           {announcements.map((ann) => (
             <div
               key={ann.id}
-              className={`flex items-center justify-between gap-3 rounded-xl border p-3 text-xs transition-colors ${
+              className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border p-3 text-xs transition-colors ${
                 ann.active
                   ? 'bg-slate-950 border-slate-700 text-white'
                   : 'bg-slate-950/40 border-slate-800 text-slate-500'
               }`}
             >
-              <div className="flex items-center gap-3">
-                <span className="rounded-lg bg-slate-800 px-2 py-0.5 text-[10px] font-bold uppercase text-slate-300">
+              <div className="flex items-start sm:items-center gap-3 min-w-0">
+                <span className="rounded-lg bg-slate-800 px-2 py-0.5 text-[10px] font-bold uppercase text-slate-300 shrink-0">
                   {ann.type}
                 </span>
-                <div>
-                  <div className="font-semibold">{ann.textEn}</div>
-                  <div className="text-[11px] text-slate-400">{ann.textTa}</div>
+                <div className="min-w-0">
+                  <div className="font-semibold break-words">{ann.textEn}</div>
+                  <div className="text-[11px] text-slate-400 break-words">{ann.textTa}</div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-end gap-2 shrink-0">
                 <button
                   onClick={() => toggleAnnouncement(ann.id)}
                   className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase transition-colors ${

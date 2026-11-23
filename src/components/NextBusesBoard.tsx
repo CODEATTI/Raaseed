@@ -58,22 +58,20 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
   return (
     <div id="next-buses-board" className="w-full flex flex-col gap-3.5">
       {/* Board Header Title & Info Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/95 border border-slate-800 px-5 py-3.5 rounded-2xl shadow-md">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-slate-900/95 border border-slate-800 px-3.5 py-3 sm:px-5 sm:py-3.5 rounded-2xl shadow-md">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 shrink-0">
             <Sparkles className="h-5 w-5" />
           </div>
-          <div>
-            <div className="flex flex-wrap items-baseline gap-2">
-              <h2 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase">
-                {language === 'ta'
-                  ? 'அடுத்து வரும் பேருந்துகள்'
-                  : language === 'en'
-                  ? 'NEXT ARRIVING BUSES'
-                  : 'NEXT ARRIVING BUSES • அடுத்து வரும் பேருந்துகள்'}
-              </h2>
-            </div>
-            <p className="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">
+          <div className="min-w-0">
+            <h2 className="text-base sm:text-xl font-black tracking-tight text-white uppercase leading-snug">
+              {language === 'ta'
+                ? 'அடுத்து வரும் பேருந்துகள்'
+                : language === 'en'
+                ? 'NEXT ARRIVING BUSES'
+                : 'NEXT ARRIVING BUSES • அடுத்து வரும் பேருந்துகள்'}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 font-medium mt-0.5 truncate">
               {language === 'ta'
                 ? `நிகழ்நேர வருகை பலகை • ${currentBusStand.nameTa}`
                 : language === 'en'
@@ -83,8 +81,8 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5 text-xs flex-wrap">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 font-semibold">
+        <div className="flex items-center gap-2 text-[11px] sm:text-xs flex-wrap">
+          <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 font-semibold">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
             {language === 'ta'
               ? 'நேரடி GPS கண்காணிப்பு'
@@ -92,7 +90,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
               ? 'Live GPS Tracking'
               : 'Live GPS • நேரடி கண்காணிப்பு'}
           </span>
-          <span className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 font-semibold border border-slate-700">
+          <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-slate-800 text-slate-200 font-semibold border border-slate-700 tabular-nums">
             {language === 'ta'
               ? `${sortedBuses.length} பேருந்துகள்`
               : language === 'en'
@@ -107,14 +105,14 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
         {/* Spotlight Card 1: Next Bus Scheduled on Display */}
         <div
           id="next-bus-display-card"
-          className="relative overflow-hidden rounded-2xl border-2 border-amber-500/40 bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950/20 p-4 shadow-xl"
+          className="relative overflow-hidden rounded-2xl border-2 border-amber-500/40 bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950/20 p-3.5 sm:p-4 shadow-xl"
         >
-          <div className="flex items-start justify-between gap-3 mb-2.5">
-            <div className="flex items-center gap-2">
+          <div className="flex items-start justify-between gap-2.5 mb-2.5">
+            <div className="flex items-center gap-2 min-w-0">
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500 text-slate-950 font-black text-xs shadow-md shrink-0">
                 <BellRing className="h-4 w-4" />
               </span>
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-[11px] font-black uppercase tracking-wider text-amber-400">
                     {language === 'ta'
@@ -147,15 +145,15 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
               }`}
               title="Toggle automatic next-bus announcement along with arrivals"
             >
-              Auto-Call: {announceNextBusEnabled ? 'ON' : 'OFF'}
+              Auto: {announceNextBusEnabled ? 'ON' : 'OFF'}
             </button>
           </div>
 
           {nextBusOnDisplay ? (
-            <div className="flex items-center justify-between gap-3 bg-slate-950/80 border border-slate-800/90 rounded-xl p-3">
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="flex flex-col items-center justify-center rounded-xl bg-slate-900 border-2 border-amber-400 px-3 py-1.5 shadow-md shrink-0">
-                  <span className="text-xl sm:text-2xl font-black font-mono text-amber-400">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-slate-950/80 border border-slate-800/90 rounded-xl p-3">
+              <div className="flex items-start sm:items-center gap-3 min-w-0">
+                <div className="flex flex-col items-center justify-center rounded-xl bg-slate-900 border-2 border-amber-400 px-2.5 sm:px-3 py-1.5 shadow-md shrink-0">
+                  <span className="text-lg sm:text-2xl font-black font-mono text-amber-400">
                     {nextBusOnDisplay.busNo}
                   </span>
                   <span className="text-[10px] font-bold text-cyan-300 uppercase">
@@ -163,7 +161,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                   </span>
                 </div>
 
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-col min-w-0 flex-1">
                   <div className="flex items-center gap-1.5 text-xs text-slate-300 font-medium flex-wrap">
                     <span>
                       {language === 'ta' ? nextBusOnDisplay.originTa : nextBusOnDisplay.originEn}
@@ -209,12 +207,12 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                 id="btn-announce-next-bus"
                 type="button"
                 onClick={() => announceNextBus(nextBusOnDisplay)}
-                className="flex flex-col items-center justify-center gap-0.5 px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shadow-md transition-all active:scale-95 shrink-0"
+                className="w-full sm:w-auto flex flex-row sm:flex-col items-center justify-center gap-1.5 sm:gap-0.5 px-3 py-2.5 sm:py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shadow-md transition-all active:scale-95 shrink-0"
                 title={`Announce Next Bus ${nextBusOnDisplay.busNo} in ${language.toUpperCase()}`}
               >
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
                   <Volume2 className="h-4 w-4" />
-                  <span>{language === 'ta' ? 'ஒலிக்க' : 'Call Next'}</span>
+                  <span>{language === 'ta' ? 'அடுத்த பேருந்து ஒலிக்க' : 'Call Next'}</span>
                 </div>
                 {language === 'dual' && <span className="text-[10px] font-bold leading-none">அடுத்தது</span>}
               </button>
@@ -231,14 +229,14 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
         {/* Spotlight Card 2: Transit Safety Rules in the Gap of Arriving Buses */}
         <div
           id="safety-rules-gap-card"
-          className="relative overflow-hidden rounded-2xl border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950/20 p-4 shadow-xl"
+          className="relative overflow-hidden rounded-2xl border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950/20 p-3.5 sm:p-4 shadow-xl"
         >
-          <div className="flex items-start justify-between gap-3 mb-2.5">
-            <div className="flex items-center gap-2">
+          <div className="flex items-start justify-between gap-2.5 mb-2.5">
+            <div className="flex items-center gap-2 min-w-0">
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500 text-slate-950 font-black text-xs shadow-md shrink-0">
                 <ShieldAlert className="h-4 w-4" />
               </span>
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-[11px] font-black uppercase tracking-wider text-emerald-400">
                     {language === 'ta'
@@ -271,12 +269,12 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
               }`}
               title="Toggle automatic safety rule announcements during arrival gaps"
             >
-              Gap Audio: {safetyAnnouncementsEnabled ? 'ON' : 'PAUSED'}
+              Gap: {safetyAnnouncementsEnabled ? 'ON' : 'OFF'}
             </button>
           </div>
 
-          <div className="flex items-center justify-between gap-3 bg-slate-950/80 border border-slate-800/90 rounded-xl p-3">
-            <div className="flex items-start gap-2.5 min-w-0">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-slate-950/80 border border-slate-800/90 rounded-xl p-3">
+            <div className="flex items-start gap-2.5 min-w-0 flex-1">
               <div className="p-2 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 shrink-0 mt-0.5">
                 <ShieldCheck className="h-4 w-4" />
               </div>
@@ -305,11 +303,11 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 shrink-0">
+            <div className="flex items-center justify-end gap-2 shrink-0 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800/80">
               <button
                 type="button"
                 onClick={cycleNextSafetyRule}
-                className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition-all text-xs"
+                className="p-2.5 sm:p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition-all text-xs shrink-0"
                 title="Next Safety Rule"
               >
                 <RotateCw className="h-4 w-4" />
@@ -318,17 +316,15 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                 id="btn-announce-safety-rule"
                 type="button"
                 onClick={() => announceSafetyRule(currentSafetyRuleIndex)}
-                className="flex flex-col items-center justify-center gap-0.5 px-3 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs shadow-md transition-all active:scale-95"
+                className="flex-1 sm:flex-initial flex flex-row sm:flex-col items-center justify-center gap-1.5 sm:gap-0.5 px-3 py-2.5 sm:py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs shadow-md transition-all active:scale-95"
                 title={`Announce safety rule now in ${language.toUpperCase()}`}
               >
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
                   <Volume2 className="h-4 w-4" />
-                  <span className="hidden sm:inline">
-                    {language === 'ta' ? 'ஒலிக்க' : 'Announce'}
-                  </span>
+                  <span>{language === 'ta' ? 'ஒலிக்க' : 'Announce'}</span>
                 </div>
                 {language === 'dual' && (
-                  <span className="hidden sm:inline text-[10px] font-bold leading-none">ஒலிபரப்பு</span>
+                  <span className="text-[10px] font-bold leading-none">ஒலிபரப்பு</span>
                 )}
               </button>
             </div>
@@ -338,10 +334,24 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
 
       {/* Main High-Contrast Bilingual Public Transit Display Board */}
       <div className="overflow-hidden rounded-2xl border-2 border-slate-800 bg-slate-950 shadow-2xl">
-        {/* Table Column Headers - Bilingual Tamil & English */}
-        <div className="grid grid-cols-12 gap-2 bg-slate-900/95 border-b border-slate-800 px-4 py-3 text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-300">
+        {/* Mobile Compact Section Header */}
+        <div className="flex md:hidden items-center justify-between bg-slate-900/95 border-b border-slate-800 px-3.5 py-2.5 text-[11px] font-black uppercase tracking-wider text-slate-300">
+          <span>
+            {language === 'ta'
+              ? 'பேருந்து வருகை வரிசை'
+              : language === 'en'
+              ? 'LIVE ARRIVAL QUEUE'
+              : 'LIVE ARRIVAL QUEUE • வருகை வரிசை'}
+          </span>
+          <span className="text-amber-400">
+            {language === 'ta' ? 'நேரம் / மேடை' : 'ETA / BAY'}
+          </span>
+        </div>
+
+        {/* Desktop Table Column Headers - Bilingual Tamil & English */}
+        <div className="hidden md:grid grid-cols-12 gap-2 bg-slate-900/95 border-b border-slate-800 px-4 py-3 text-xs font-black uppercase tracking-wider text-slate-300">
           <div className="col-span-1 text-center text-amber-400">#</div>
-          <div className="col-span-2 sm:col-span-2 text-left pl-2">
+          <div className="col-span-2 text-left pl-2">
             {language === 'ta' ? (
               'பேருந்து எண்'
             ) : language === 'en' ? (
@@ -353,7 +363,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
               </div>
             )}
           </div>
-          <div className="col-span-4 sm:col-span-4 text-left">
+          <div className="col-span-4 text-left">
             {language === 'ta' ? (
               'வழித்தடம் & சேருமிடம்'
             ) : language === 'en' ? (
@@ -365,7 +375,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
               </div>
             )}
           </div>
-          <div className="col-span-2 hidden md:block text-left">
+          <div className="col-span-2 text-left">
             {language === 'ta' ? (
               'பேருந்து வகை'
             ) : language === 'en' ? (
@@ -377,7 +387,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
               </div>
             )}
           </div>
-          <div className="col-span-2 sm:col-span-1 text-center">
+          <div className="col-span-1 text-center">
             {language === 'ta' ? (
               'நடைமேடை'
             ) : language === 'en' ? (
@@ -389,7 +399,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
               </div>
             )}
           </div>
-          <div className="col-span-3 sm:col-span-2 text-right pr-2">
+          <div className="col-span-2 text-right pr-2">
             {language === 'ta' ? (
               'வருகை நேரம்'
             ) : language === 'en' ? (
@@ -415,7 +425,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                 key={bus.id}
                 id={`bus-row-${bus.busNo.toLowerCase()}`}
                 onClick={() => handleRowClick(bus)}
-                className={`grid grid-cols-12 gap-2 items-center px-4 py-3.5 sm:py-4 cursor-pointer transition-all duration-150 hover:bg-slate-900/90 group ${
+                className={`p-3.5 md:px-4 md:py-4 md:grid md:grid-cols-12 md:gap-2 md:items-center cursor-pointer transition-all duration-150 hover:bg-slate-900/90 group ${
                   isArriving
                     ? 'bg-emerald-950/25 border-l-4 border-l-emerald-400'
                     : isNextQueued
@@ -426,10 +436,146 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                 }`}
                 title="Click for full route details and stops"
               >
+                {/* MOBILE CARD LAYOUT (< md) */}
+                <div className="flex flex-col gap-3 md:hidden">
+                  {/* Top Bar: Rank + Bus No + Bay + ETA */}
+                  <div className="flex items-start justify-between gap-2.5">
+                    <div className="flex items-center gap-2 min-w-0 flex-wrap">
+                      <span
+                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-black text-xs border ${
+                          isArriving
+                            ? 'bg-emerald-500 text-slate-950 border-emerald-300'
+                            : isNextQueued
+                            ? 'bg-amber-500 text-slate-950 border-amber-300'
+                            : 'bg-slate-800 text-slate-200 border-slate-700'
+                        }`}
+                      >
+                        {idx + 1}
+                      </span>
+
+                      <div className="inline-flex items-center rounded-xl bg-slate-900 px-2.5 py-1 border-2 border-slate-700 shadow-inner">
+                        <span className="font-mono text-lg font-black tracking-tight text-amber-400">
+                          {bus.busNo}
+                        </span>
+                      </div>
+
+                      <span className="rounded-lg bg-slate-900 border border-slate-700 px-2 py-1 text-[11px] font-black text-cyan-300 whitespace-nowrap">
+                        {bus.platform}
+                      </span>
+                    </div>
+
+                    <div className="shrink-0">
+                      <ETAIndicator
+                        etaMinutes={bus.etaMinutes}
+                        etaSecondsRemaining={bus.etaSecondsRemaining}
+                        status={bus.status}
+                        language={language}
+                        size="md"
+                        showSubtext={true}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Middle Info: Origin -> Destination & Category */}
+                  <div className="min-w-0 space-y-1.5">
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium flex-wrap">
+                      <span>
+                        {language === 'ta'
+                          ? bus.originTa
+                          : language === 'en'
+                          ? bus.originEn
+                          : `${bus.originEn} (${bus.originTa})`}
+                      </span>
+                      <ArrowRight className="h-3 w-3 text-slate-500 shrink-0" />
+                    </div>
+
+                    <div>
+                      <div className="text-lg font-black text-white tracking-tight leading-snug">
+                        {language === 'ta' ? bus.destinationTa : bus.destinationEn}
+                      </div>
+                      {language === 'dual' && (
+                        <div className="text-sm font-bold text-amber-200/95 leading-snug">
+                          {bus.destinationTa}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                      <CategoryBadge category={bus.category} language={language} size="sm" />
+                      {bus.isWomenFree && (
+                        <span className="text-[11px] font-bold text-pink-300 flex items-center gap-1">
+                          <span className="h-1.5 w-1.5 rounded-full bg-pink-400 shrink-0"></span>
+                          {language === 'ta'
+                            ? 'மகளிர் இலவசம்'
+                            : language === 'en'
+                            ? 'Free for Women'
+                            : 'Free • மகளிர் இலவசம்'}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-start gap-1.5 text-[11px] text-slate-300 pt-0.5">
+                      <MapPin className="h-3 w-3 text-slate-400 shrink-0 mt-0.5" />
+                      <div className="leading-snug min-w-0">
+                        {language === 'ta' ? (
+                          <span>வழி: {bus.viaStopsTa.slice(0, 3).join(', ')}</span>
+                        ) : language === 'en' ? (
+                          <span>Via: {bus.viaStopsEn.slice(0, 3).join(', ')}</span>
+                        ) : (
+                          <span>
+                            Via: {bus.viaStopsEn.slice(0, 3).join(', ')} •{' '}
+                            <span className="text-slate-400">வழி: {bus.viaStopsTa.slice(0, 3).join(', ')}</span>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Touch Action Strip */}
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800/70">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        announceBus(bus);
+                      }}
+                      className="min-h-[40px] px-3 py-1.5 rounded-xl bg-slate-800/95 hover:bg-emerald-500 hover:text-slate-950 text-emerald-300 border border-slate-700 transition-all flex items-center justify-center gap-1.5 text-xs font-bold"
+                    >
+                      <Volume2 className="h-3.5 w-3.5 shrink-0" />
+                      <span>
+                        {language === 'ta'
+                          ? 'வருகை ஒலிக்க'
+                          : language === 'en'
+                          ? 'Call Arrival'
+                          : 'Arrival / வருகை'}
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        announceNextBus(bus);
+                      }}
+                      className="min-h-[40px] px-3 py-1.5 rounded-xl bg-slate-800/95 hover:bg-amber-500 hover:text-slate-950 text-amber-300 border border-slate-700 transition-all flex items-center justify-center gap-1.5 text-xs font-bold"
+                    >
+                      <BellRing className="h-3.5 w-3.5 shrink-0" />
+                      <span>
+                        {language === 'ta'
+                          ? 'அடுத்தது ஒலிக்க'
+                          : language === 'en'
+                          ? 'Call Next'
+                          : 'Next / அடுத்தது'}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* DESKTOP / TV TABLE LAYOUT (>= md) */}
                 {/* 1. Priority Rank */}
-                <div className="col-span-1 flex flex-col items-center justify-center">
+                <div className="hidden md:flex col-span-1 flex-col items-center justify-center">
                   <span
-                    className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl font-black text-sm sm:text-base border ${
+                    className={`flex h-9 w-9 items-center justify-center rounded-xl font-black text-base border ${
                       isArriving
                         ? 'bg-emerald-500 text-slate-950 border-emerald-300'
                         : isNextQueued
@@ -442,9 +588,9 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                 </div>
 
                 {/* 2. Bus Number Badge - Extra Large & High Contrast */}
-                <div className="col-span-2 sm:col-span-2 flex flex-col items-start pl-1">
+                <div className="hidden md:flex col-span-2 flex-col items-start pl-1">
                   <div className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3 py-1.5 border-2 border-slate-700 group-hover:border-amber-400/70 transition-colors shadow-inner">
-                    <span className="font-mono text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-amber-400">
+                    <span className="font-mono text-2xl md:text-3xl font-black tracking-tight text-amber-400">
                       {bus.busNo}
                     </span>
                   </div>
@@ -458,16 +604,13 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                         : 'Free • மகளிர் இலவசம்'}
                     </span>
                   )}
-                  <div className="mt-1 md:hidden">
-                    <CategoryBadge category={bus.category} language={language} size="sm" />
-                  </div>
                 </div>
 
                 {/* 3. Route & Destination - Prominent Bilingual Display */}
-                <div className="col-span-4 sm:col-span-4 flex flex-col justify-center pr-2">
+                <div className="hidden md:flex col-span-4 flex-col justify-center pr-2">
                   {/* Origin -> Destination small indicator */}
                   <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium flex-wrap">
-                    <span className="truncate max-w-[140px] sm:max-w-none">
+                    <span>
                       {language === 'ta'
                         ? bus.originTa
                         : language === 'en'
@@ -479,18 +622,18 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
 
                   {/* Destination Big Text - Always Clear in Both English & Tamil */}
                   <div className="mt-0.5 flex flex-col">
-                    <span className="text-base sm:text-xl md:text-2xl font-black text-white tracking-tight group-hover:text-amber-300 transition-colors leading-tight">
+                    <span className="text-xl md:text-2xl font-black text-white tracking-tight group-hover:text-amber-300 transition-colors leading-tight">
                       {language === 'ta' ? bus.destinationTa : bus.destinationEn}
                     </span>
                     {language === 'dual' && (
-                      <span className="text-sm sm:text-base md:text-lg font-bold text-amber-200/95 leading-snug mt-0.5">
+                      <span className="text-base md:text-lg font-bold text-amber-200/95 leading-snug mt-0.5">
                         {bus.destinationTa}
                       </span>
                     )}
                   </div>
 
                   {/* Via Major Stops Snippet */}
-                  <div className="hidden sm:flex items-start gap-1 text-[11px] text-slate-300 mt-1">
+                  <div className="flex items-start gap-1 text-[11px] text-slate-300 mt-1">
                     <MapPin className="h-3 w-3 text-slate-400 shrink-0 mt-0.5" />
                     <div className="flex flex-col leading-tight">
                       {language === 'ta' ? (
@@ -516,7 +659,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                 </div>
 
                 {/* 4. Category Badge */}
-                <div className="col-span-2 hidden md:flex flex-col items-start justify-center">
+                <div className="hidden md:flex col-span-2 flex-col items-start justify-center">
                   <CategoryBadge category={bus.category} language={language} size="md" />
                   <span className="text-[11px] text-slate-300 mt-1.5 flex items-center gap-1">
                     <Users className="h-3 w-3 text-slate-400" />
@@ -541,8 +684,8 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                 </div>
 
                 {/* 5. Platform / Bay */}
-                <div className="col-span-2 sm:col-span-1 flex flex-col items-center justify-center">
-                  <span className="rounded-lg bg-slate-900 border border-slate-700 px-2.5 py-1 text-xs sm:text-sm font-black text-cyan-300 whitespace-nowrap shadow-sm">
+                <div className="hidden md:flex col-span-1 flex-col items-center justify-center">
+                  <span className="rounded-lg bg-slate-900 border border-slate-700 px-2.5 py-1 text-sm font-black text-cyan-300 whitespace-nowrap shadow-sm">
                     {bus.platform}
                   </span>
                   <span className="text-[10px] text-slate-300 font-semibold mt-0.5 text-center">
@@ -555,7 +698,7 @@ export const NextBusesBoard: React.FC<NextBusesBoardProps> = ({ onSelectBus, max
                 </div>
 
                 {/* 6. ETA - Prominent Public Display Element & Call Controls */}
-                <div className="col-span-3 sm:col-span-2 flex flex-col items-end justify-center pr-2">
+                <div className="hidden md:flex col-span-2 flex-col items-end justify-center pr-2">
                   <ETAIndicator
                     etaMinutes={bus.etaMinutes}
                     etaSecondsRemaining={bus.etaSecondsRemaining}

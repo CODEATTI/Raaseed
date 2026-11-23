@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useBus } from '../context/BusContext';
-import { Megaphone, AlertTriangle, Info, ShieldAlert, ChevronRight, Volume2 } from 'lucide-react';
+import { Megaphone, AlertTriangle, Info, ShieldAlert, ChevronRight } from 'lucide-react';
 
 export const AnnouncementBar: React.FC = () => {
-  const { announcements, language, soundEnabled } = useBus();
+  const { announcements, language } = useBus();
   const activeAnnouncements = announcements.filter((a) => a.active);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -41,9 +41,9 @@ export const AnnouncementBar: React.FC = () => {
   const getBgColor = (type: string) => {
     switch (type) {
       case 'alert':
-        return 'bg-gradient-to-r from-amber-950/90 via-slate-900 to-amber-950/90 border-amber-500/50';
+        return 'bg-gradient-to-r from-amber-950/95 via-slate-900 to-amber-950/95 border-amber-500/50';
       case 'delay':
-        return 'bg-gradient-to-r from-rose-950/90 via-slate-900 to-rose-950/90 border-rose-500/50';
+        return 'bg-gradient-to-r from-rose-950/95 via-slate-900 to-rose-950/95 border-rose-500/50';
       default:
         return 'bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-slate-800';
     }
@@ -54,15 +54,15 @@ export const AnnouncementBar: React.FC = () => {
       id="announcement-bar"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className={`fixed bottom-0 left-0 right-0 z-30 border-t-2 py-2 px-4 backdrop-blur-lg shadow-2xl transition-colors ${getBgColor(
+      className={`fixed bottom-0 left-0 right-0 z-30 border-t-2 py-2 px-3 sm:px-4 backdrop-blur-lg shadow-2xl transition-colors ${getBgColor(
         current.type,
       )}`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2.5 sm:gap-4">
         {/* Left Badge: Ticker Announcement Label */}
         <div className="flex items-center gap-2 shrink-0">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/30">
-            <Megaphone className="h-4 w-4" />
+          <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/30">
+            <Megaphone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </div>
           <div className="hidden sm:flex flex-col">
             <span className="text-[10px] font-black uppercase tracking-wider text-amber-400">
@@ -74,11 +74,11 @@ export const AnnouncementBar: React.FC = () => {
           </div>
         </div>
 
-        {/* Center: Marquee / Rotating Alert Text */}
-        <div className="flex-1 overflow-hidden">
+        {/* Center: Rotating Alert Text */}
+        <div className="flex-1 min-w-0 overflow-hidden">
           <div className="flex items-center gap-2 animate-fadeIn transition-opacity">
             {getIcon(current.type)}
-            <p className="text-xs sm:text-sm font-bold text-white tracking-wide truncate sm:whitespace-normal">
+            <p className="text-[11px] sm:text-sm font-bold text-white tracking-wide line-clamp-2 sm:line-clamp-none leading-snug">
               {language === 'ta'
                 ? current.textTa
                 : language === 'en'
@@ -105,7 +105,7 @@ export const AnnouncementBar: React.FC = () => {
           <button
             id="btn-next-announcement"
             onClick={() => setCurrentIndex((prev) => (prev + 1) % activeAnnouncements.length)}
-            className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
+            className="flex h-8 w-8 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white active:scale-95"
             title="Next Announcement"
           >
             <ChevronRight className="h-4 w-4" />

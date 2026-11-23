@@ -42,9 +42,9 @@ export const CategoriesGuide: React.FC = () => {
             >
               <div>
                 {/* Header Badge */}
-                <div className="flex items-start justify-between gap-3 mb-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
                   <CategoryBadge category={catKey} language={language} size="lg" />
-                  <span className="rounded-full bg-slate-900 border border-slate-800 px-3 py-1 text-xs font-bold text-slate-400">
+                  <span className="rounded-full bg-slate-900 border border-slate-800 px-3 py-1 text-xs font-bold text-slate-400 whitespace-nowrap shrink-0">
                     {activeCount} in Fleet
                   </span>
                 </div>

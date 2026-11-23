@@ -92,29 +92,29 @@ export const BusDetailsModal: React.FC = () => {
       onClick={() => setSelectedBus(null)}
     >
       <div
-        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl border-2 border-slate-700 bg-slate-900 shadow-2xl p-5 sm:p-7 text-white"
+        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl border-2 border-slate-700 bg-slate-900 shadow-2xl p-4 sm:p-7 text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           id="btn-close-details-modal"
           onClick={() => setSelectedBus(null)}
-          className="absolute top-5 right-5 flex h-9 w-9 items-center justify-center rounded-xl bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 flex h-9 w-9 items-center justify-center rounded-xl bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
           title="Close Details"
         >
           <X className="h-5 w-5" />
         </button>
 
         {/* Modal Header */}
-        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-800 pb-5 pr-10">
-          <div className="flex items-center gap-3">
-            <div className="rounded-2xl bg-slate-950 border-2 border-amber-400 px-4 py-2 text-center shadow-inner">
-              <span className="font-mono text-3xl sm:text-4xl font-black text-amber-400">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3.5 sm:gap-4 border-b border-slate-800 pb-4 sm:pb-5 pr-0 sm:pr-10">
+          <div className="flex items-start gap-3 pr-10 sm:pr-0 min-w-0">
+            <div className="rounded-2xl bg-slate-950 border-2 border-amber-400 px-3 sm:px-4 py-1.5 sm:py-2 text-center shadow-inner shrink-0">
+              <span className="font-mono text-2xl sm:text-4xl font-black text-amber-400">
                 {selectedBus.busNo}
               </span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
                 <CategoryBadge category={selectedBus.category} language={language} size="md" />
                 {selectedBus.isElectric && (
                   <span className="inline-flex items-center gap-1 rounded-lg bg-cyan-950 border border-cyan-500/40 px-2 py-0.5 text-xs font-bold text-cyan-300">
@@ -122,10 +122,10 @@ export const BusDetailsModal: React.FC = () => {
                   </span>
                 )}
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-white mt-1">
+              <h3 className="text-lg sm:text-2xl font-black text-white mt-1 leading-tight">
                 {language === 'ta' ? selectedBus.destinationTa : selectedBus.destinationEn}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-400 mt-0.5">
                 {language === 'ta'
                   ? `${selectedBus.originTa} முதல் ${selectedBus.destinationTa} வரை`
                   : `${selectedBus.originEn} → ${selectedBus.destinationEn}`}
@@ -133,8 +133,8 @@ export const BusDetailsModal: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-end">
-            <span className="text-xs text-slate-400 uppercase font-semibold">Estimated Arrival</span>
+          <div className="w-full sm:w-auto flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-start border-t sm:border-t-0 border-slate-800/80 pt-3 sm:pt-0 shrink-0">
+            <span className="text-xs text-slate-400 uppercase font-semibold sm:mb-1">Estimated Arrival</span>
             <ETAIndicator
               etaMinutes={selectedBus.etaMinutes}
               etaSecondsRemaining={selectedBus.etaSecondsRemaining}
@@ -172,29 +172,29 @@ export const BusDetailsModal: React.FC = () => {
         </div>
 
         {/* Terminal PA Audio Call Buttons */}
-        <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-slate-950 border border-slate-800 p-3.5 shadow-inner">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30">
+        <div className="mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl bg-slate-950 border border-slate-800 p-3.5 shadow-inner">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 shrink-0">
               <Volume2 className="h-4 w-4" />
             </div>
-            <div>
-              <div className="text-xs font-black text-white flex items-center gap-2">
+            <div className="min-w-0">
+              <div className="text-xs font-black text-white flex items-center gap-2 flex-wrap">
                 <span>Terminal PA Audio Calling</span>
                 <span className="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-[10px] text-amber-300 uppercase font-mono">
                   {language === 'ta' ? 'தமிழ்' : language === 'en' ? 'English' : 'Dual (தமிழ் + English)'}
                 </span>
               </div>
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-slate-400 block mt-0.5">
                 Broadcast arrival or next-bus call in your declared language ({language.toUpperCase()})
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="grid grid-cols-2 sm:flex items-center gap-2 w-full sm:w-auto shrink-0">
             <button
               id="btn-modal-announce-bus"
               type="button"
               onClick={() => announceBus(selectedBus)}
-              className="flex items-center gap-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-2 text-xs font-black transition-all shadow-md active:scale-95"
+              className="flex items-center justify-center gap-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-2 text-xs font-black transition-all shadow-md active:scale-95"
               title="Broadcast arrival call now"
             >
               <Volume2 className="h-3.5 w-3.5" />
@@ -204,7 +204,7 @@ export const BusDetailsModal: React.FC = () => {
               id="btn-modal-announce-next"
               type="button"
               onClick={() => announceNextBus(selectedBus)}
-              className="flex items-center gap-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-2 text-xs font-black transition-all shadow-md active:scale-95"
+              className="flex items-center justify-center gap-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-2 text-xs font-black transition-all shadow-md active:scale-95"
               title="Broadcast as next bus on display"
             >
               <BellRing className="h-3.5 w-3.5" />
@@ -258,31 +258,31 @@ export const BusDetailsModal: React.FC = () => {
             </div>
 
             {/* Switch QR Target Mode */}
-            <div className="flex items-center gap-1.5 rounded-xl bg-slate-950 p-1 border border-slate-800">
+            <div className="grid grid-cols-2 sm:flex items-center gap-1.5 rounded-xl bg-slate-950 p-1 border border-slate-800 w-full sm:w-auto">
               <button
                 id="btn-qr-mode-tracking"
                 type="button"
                 onClick={() => setQrMode('tracking')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   qrMode === 'tracking'
                     ? 'bg-amber-500 text-slate-950 shadow-sm'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <Compass className="h-3.5 w-3.5" />
+                <Compass className="h-3.5 w-3.5 shrink-0" />
                 <span>{language === 'ta' ? 'நேரடி ஜிபிஎஸ்' : 'Live GPS Radar'}</span>
               </button>
               <button
                 id="btn-qr-mode-schedule"
                 type="button"
                 onClick={() => setQrMode('schedule')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   qrMode === 'schedule'
                     ? 'bg-cyan-500 text-slate-950 shadow-sm'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <Calendar className="h-3.5 w-3.5" />
+                <Calendar className="h-3.5 w-3.5 shrink-0" />
                 <span>{language === 'ta' ? 'கால அட்டவணை' : 'MTC Timetable'}</span>
               </button>
             </div>
@@ -499,7 +499,7 @@ export const BusDetailsModal: React.FC = () => {
                   </div>
 
                   {/* Stop Name */}
-                  <div className="flex flex-col">
+                  <div className="flex flex-col min-w-0">
                     <span
                       className={`font-bold ${
                         isCurrent
@@ -521,17 +521,17 @@ export const BusDetailsModal: React.FC = () => {
                   </div>
 
                   {/* Status label */}
-                  <div>
+                  <div className="shrink-0 text-right">
                     {isCurrent && (
-                      <span className="rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] px-2 py-0.5 font-bold uppercase">
-                        {language === 'ta' ? 'இங்கு உள்ளது' : 'Current Location'}
+                      <span className="rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] px-2 py-0.5 font-bold uppercase whitespace-nowrap">
+                        {language === 'ta' ? 'இங்கு உள்ளது' : 'Current'}
                       </span>
                     )}
                     {isPassed && (
-                      <span className="text-[10px] text-slate-400">Departed</span>
+                      <span className="text-[10px] text-slate-400 whitespace-nowrap">Departed</span>
                     )}
                     {isDest && (
-                      <span className="rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/40 text-[10px] px-2 py-0.5 font-bold uppercase">
+                      <span className="rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/40 text-[10px] px-2 py-0.5 font-bold uppercase whitespace-nowrap">
                         Terminal End
                       </span>
                     )}
@@ -543,8 +543,8 @@ export const BusDetailsModal: React.FC = () => {
         </div>
 
         {/* Safety & Amenities Footer */}
-        <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 border-t border-slate-800 pt-4">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-400 border-t border-slate-800 pt-4">
+          <div className="flex items-center gap-3 flex-wrap">
             <span className="flex items-center gap-1">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" /> GPS Tracked Fleet
             </span>
@@ -555,7 +555,7 @@ export const BusDetailsModal: React.FC = () => {
 
           <button
             onClick={() => setSelectedBus(null)}
-            className="rounded-xl bg-slate-800 hover:bg-slate-700 px-4 py-2 text-xs font-bold text-white transition-colors"
+            className="w-full sm:w-auto rounded-xl bg-slate-800 hover:bg-slate-700 px-4 py-2.5 sm:py-2 text-xs font-bold text-white transition-colors"
           >
             Close Window
           </button>

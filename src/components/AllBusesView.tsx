@@ -84,13 +84,13 @@ export const AllBusesView: React.FC = () => {
   return (
     <div id="all-buses-view" className="w-full flex flex-col gap-5 pb-16">
       {/* Title Banner */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-slate-900 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div className="min-w-0">
           <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-400">
-            <Layers className="h-4 w-4" />
+            <Layers className="h-4 w-4 shrink-0" />
             <span>MTC Fleet Schedules</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
+          <h2 className="text-xl sm:text-3xl font-black text-white mt-1">
             {language === 'ta' ? 'அனைத்து பேருந்துகள்' : 'ALL BUSES AT THIS STOP'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -100,8 +100,8 @@ export const AllBusesView: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-950/80 border border-slate-800 px-4 py-2 rounded-2xl">
-          <span className="text-2xl font-black text-amber-400 font-mono">
+        <div className="self-start sm:self-auto flex items-center gap-2 bg-slate-950/80 border border-slate-800 px-4 py-2 rounded-2xl shrink-0">
+          <span className="text-xl sm:text-2xl font-black text-amber-400 font-mono tabular-nums">
             {filteredAndSortedBuses.length}
           </span>
           <span className="text-xs text-slate-400 uppercase font-semibold">
@@ -111,10 +111,10 @@ export const AllBusesView: React.FC = () => {
       </div>
 
       {/* Filter and Search Controls */}
-      <div className="flex flex-col gap-3.5 bg-slate-900/80 border border-slate-800 p-4 sm:p-5 rounded-2xl shadow-lg">
-        <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-col gap-3.5 bg-slate-900/80 border border-slate-800 p-3.5 sm:p-5 rounded-2xl shadow-lg">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-3">
           {/* Search bar */}
-          <div className="relative flex-1 min-w-[240px]">
+          <div className="relative w-full lg:flex-1 min-w-0">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
             <input
               id="search-all-buses"
@@ -131,21 +131,21 @@ export const AllBusesView: React.FC = () => {
           </div>
 
           {/* Sort Buttons */}
-          <div className="flex items-center gap-1.5 bg-slate-950 border border-slate-800 p-1 rounded-xl text-xs font-bold">
-            <span className="text-[11px] text-slate-400 px-2 flex items-center gap-1">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-1.5 bg-slate-950 border border-slate-800 p-1.5 sm:p-1 rounded-xl text-xs font-bold w-full lg:w-auto">
+            <span className="text-[11px] text-slate-400 px-1.5 flex items-center gap-1 shrink-0">
               <ArrowUpDown className="h-3 w-3" /> Sort:
             </span>
             <button
               onClick={() => toggleSort('eta')}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
+              className={`flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
                 sortBy === 'eta' ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-300 hover:text-white'
               }`}
             >
-              Arrival Time {sortBy === 'eta' && (sortOrder === 'asc' ? '↑' : '↓')}
+              ETA {sortBy === 'eta' && (sortOrder === 'asc' ? '↑' : '↓')}
             </button>
             <button
               onClick={() => toggleSort('busNo')}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
+              className={`flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
                 sortBy === 'busNo' ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-300 hover:text-white'
               }`}
             >
@@ -153,11 +153,11 @@ export const AllBusesView: React.FC = () => {
             </button>
             <button
               onClick={() => toggleSort('destination')}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
+              className={`flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
                 sortBy === 'destination' ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-300 hover:text-white'
               }`}
             >
-              Destination {sortBy === 'destination' && (sortOrder === 'asc' ? '↑' : '↓')}
+              Dest {sortBy === 'destination' && (sortOrder === 'asc' ? '↑' : '↓')}
             </button>
           </div>
         </div>
@@ -190,16 +190,16 @@ export const AllBusesView: React.FC = () => {
             key={bus.id}
             id={`all-bus-card-${bus.busNo.toLowerCase()}`}
             onClick={() => setSelectedBus(bus)}
-            className="group relative flex flex-col justify-between rounded-2xl border-2 border-slate-800 bg-slate-950 p-5 hover:border-amber-400/80 hover:bg-slate-900/60 transition-all duration-200 cursor-pointer shadow-lg"
+            className="group relative flex flex-col justify-between rounded-2xl border-2 border-slate-800 bg-slate-950 p-4 sm:p-5 hover:border-amber-400/80 hover:bg-slate-900/60 transition-all duration-200 cursor-pointer shadow-lg"
           >
             <div>
               {/* Top Row: Bus No + Category */}
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="rounded-xl bg-slate-900 border-2 border-slate-700 px-3.5 py-1.5 font-mono text-2xl font-black text-amber-400 group-hover:border-amber-400 transition-colors">
+              <div className="flex items-start justify-between gap-2.5">
+                <div className="flex items-start gap-2.5 min-w-0">
+                  <div className="rounded-xl bg-slate-900 border-2 border-slate-700 px-3 py-1.5 font-mono text-xl sm:text-2xl font-black text-amber-400 group-hover:border-amber-400 transition-colors shrink-0">
                     {bus.busNo}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <CategoryBadge category={bus.category} language={language} size="sm" />
                     <span className="block text-[10px] text-cyan-300 font-bold mt-1">
                       {bus.platform}
@@ -207,25 +207,27 @@ export const AllBusesView: React.FC = () => {
                   </div>
                 </div>
 
-                <ETAIndicator
-                  etaMinutes={bus.etaMinutes}
-                  etaSecondsRemaining={bus.etaSecondsRemaining}
-                  status={bus.status}
-                  language={language}
-                  size="md"
-                  showSubtext={false}
-                />
+                <div className="shrink-0">
+                  <ETAIndicator
+                    etaMinutes={bus.etaMinutes}
+                    etaSecondsRemaining={bus.etaSecondsRemaining}
+                    status={bus.status}
+                    language={language}
+                    size="md"
+                    showSubtext={false}
+                  />
+                </div>
               </div>
 
               {/* Destination & Route */}
               <div className="mt-4">
-                <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                <div className="flex items-center gap-1.5 text-xs text-slate-400 flex-wrap">
                   <span className="truncate">{language === 'ta' ? bus.originTa : bus.originEn}</span>
                   <ArrowRight className="h-3 w-3 text-slate-600 shrink-0" />
                   <span className="text-slate-300">{language === 'ta' ? bus.destinationTa : bus.destinationEn}</span>
                 </div>
 
-                <h3 className="text-xl font-black text-white mt-1 group-hover:text-amber-300 transition-colors">
+                <h3 className="text-lg sm:text-xl font-black text-white mt-1 group-hover:text-amber-300 transition-colors">
                   {language === 'ta' ? bus.destinationTa : bus.destinationEn}
                 </h3>
                 {language === 'dual' && (
@@ -238,7 +240,7 @@ export const AllBusesView: React.FC = () => {
               {/* Via Stops snippet */}
               <div className="mt-3 flex items-start gap-1.5 text-xs text-slate-400">
                 <MapPin className="h-3 w-3 text-slate-500 shrink-0 mt-0.5" />
-                <span className="truncate">
+                <span className="line-clamp-2 leading-snug">
                   {language === 'ta'
                     ? bus.viaStopsTa.slice(0, 3).join(' • ')
                     : language === 'en'
