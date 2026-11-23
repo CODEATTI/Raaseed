@@ -1,0 +1,7 @@
+{
+  "name": "MTC Chennai - Smart Bus Arrival & Category Display",
+  "description": "Public TV terminal display and real-time passenger information system for Metropolitan Transport Corporation (MTC) buses in Chennai, Tamil Nadu, featuring live arrival countdowns, bilingual Tamil/English support, category badges, bus route details, and operator admin controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
